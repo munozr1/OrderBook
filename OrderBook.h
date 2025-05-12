@@ -14,6 +14,8 @@ class OrderBook {
     private:
         bool findFirstAvailableMarketSellOrder(Order& outOrder, float& priceLevel);
         bool findFirstAvailableLimitSellOrder(Order& outOrder, float& priceLevel);
+        bool findFirstAvailableMarketBuyOrder(Order& outOrder, float& priceLevel);
+        bool findFirstAvailableLimitBuyOrder(Order& outOrder, float& priceLevel);
         std::map<float, OrderQueue, std::greater<float> > buySide;
         std::map<float, OrderQueue> sellSide;
         OrderIdManager& idManager;
