@@ -16,9 +16,11 @@ void OrderBook::addOrder(Order& order){
     order.timestamp = std::time(0); // do not let clients set timestamp themselves
     order.id = idManager.getNextOrderId();
     Order candidate;
-    float priceLevel;
+    float priceLevel = order.price;
+    //will get overwritten if is a limit order
     
     if (side == buy) {
+        std::cout << "New buy order @ " << priceLevel <<std::endl;
         if (type == market) {
             if (findFirstAvailableMarketSellOrder(candidate, priceLevel)){
                 //1. notify user for approved buy order with order details (network call?)
@@ -34,7 +36,6 @@ void OrderBook::addOrder(Order& order){
 
         } else if (type == limit) {
             // match against sellSide, price <= order.price
-
             if (findFirstAvailableLimitSellOrder(candidate, priceLevel)){
                 std::cout<< "Fulfilled buy limit order @ " << priceLevel << std::endl;
                 OrderQueue& queue = sellSide[priceLevel];
@@ -48,6 +49,7 @@ void OrderBook::addOrder(Order& order){
             
         }
     } else if (side == sell) {
+        std::cout << "New sell order @ " << priceLevel <<std::endl;
         if (type == market) {
             // match against buySide, no price check
             if (findFirstAvailableMarketBuyOrder(candidate, priceLevel)){

@@ -6,7 +6,7 @@
 class OrderBook {
     public:
         void addOrder(Order& order);
-        bool cancelOrder(const Order& order);
+        bool cancelOrder(Order& order);
         void matchOrders();
         OrderBook(OrderIdManager& manager);
 
