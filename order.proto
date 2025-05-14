@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package matching;
+
+// Enum declarations
+enum OrderType {
+  MARKET = 0;
+  LIMIT = 1;
+}
+
+enum OrderSide {
+  BUY = 0;
+  SELL = 1;
+}
+
+// Order message
+message Order_pb {
+  float price = 1;
+  OrderType type = 2;
+  OrderSide side = 3;
+}
+

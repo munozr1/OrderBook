@@ -1,4 +1,3 @@
-
 #include "zmqpp/context.hpp"
 #include "zmqpp/socket_types.hpp"
 #include <zmqpp/zmqpp.hpp>
