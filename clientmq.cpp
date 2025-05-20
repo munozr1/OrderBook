@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <chrono>
 #include "order.pb.h"
 
 
@@ -57,12 +58,18 @@ int main(int argc, char *argv[]) {
     /* compose message */
     zmqpp::message message;
     message.add_raw(buffer.data(), buffer.size());
-    socket.send(message);
 
     /* wait for reply */
+    auto start = std::chrono::high_resolution_clock::now();
+    socket.send(message);
     std::string reply_buffer;
     socket.receive(reply_buffer);
-    std::cout << "replied #" << i << std::endl;
+    auto end = std::chrono::high_resolution_clock::now();
+
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+
+    /* log response time */
+    std::cout << "ack order #" << i << " in " << duration <<" µs"<< std::endl;
     
   }
 
